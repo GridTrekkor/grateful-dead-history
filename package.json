@@ -1,0 +1,14 @@
+{
+  "name": "gratefuldead",
+  "version": "0.0.5",
+  "description": "Grateful Dead concerts on this date",
+  "main": "server.js",
+  "scripts": {},
+  "author": "Jonathan Osborne",
+  "dependencies": {
+    "typescript": "^3.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.17"
+  }
+}
