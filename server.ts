@@ -22,10 +22,15 @@ interface Setlist {
     city: string
 };
 
-const mbid: string = '6faa7ca7-0d99-4a5e-bfa6-1fd5037520c6';
+const mbid: string = '6faa7ca7-0d99-4a5e-bfa6-1fd5037520c6'; // Grateful Dead MusicBrainz ID
 const apiKey: string = config.apiKey;
-const startYear: number = 1965;
-const endYear: number = 1995;
+const startYear = 1965;
+const endYear = 1995;
+
+let years: number[] = [];
+for (let year: number = startYear; year <= endYear; year++) {
+    years.push(year);
+}
 
 const month = new Date().getMonth() + 1;
 const day = new Date().getDate();
@@ -48,22 +53,12 @@ const options: Options = {
 };
 
 const processData = (data: any) => {
-    // date is returned in a non-standard (DD-MM-YYYY) format; convert to ISO (YYYY-MM-DD)
     const year = data.eventDate.substring(6, 12);
-    // const month = data.eventDate.substring(3, 5);
-    // const day = data.eventDate.substring(0, 2);
-    // const date: string = `${year}-${month}-${day}`;
     return {
         date: year,
         venue: data.venue.name,
         city: data.venue.city.name
     }
-}
-
-let years: number[] = [];
-
-for (let year: number = startYear; year <= endYear; year++) {
-    years.push(year);
 }
 
 function getData (year: number): void {
@@ -92,7 +87,6 @@ function getData (year: number): void {
 
 function buildText (): string {
     let text: string = `Concerts on this day:
-
     `;
 
     setlists.map(item => {
@@ -101,7 +95,8 @@ function buildText (): string {
         `;
     });
 
-    text += `archive.org: ${archiveLink}`;
+    text += `
+    archive.org: ${archiveLink}`;
     return text;
 }
 
@@ -115,5 +110,3 @@ const dataInterval: NodeJS.Timeout = setInterval(() => {
         console.log(buildText());
     }
 }, 750);
-
-// process.exit();
